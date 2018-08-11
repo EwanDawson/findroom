@@ -1,0 +1,60 @@
+#+TITLE: FindRoom
+
+* Objectives
+  I'm going to build an application to allow users to book meeting rooms in CodeBase. The application will provide the following features:
+  - Users can find a list of available rooms that meet the users criteria, such as:
+    - time (start/end time, or start time and duration)
+    - room size (number of seats required)
+    - equipment required (whiteboard, TV)
+    - floor
+
+* Technology
+  I want to try building this using Datomic Ions running on AWS. Based on my calculations, this will cost about £27 per month in software and infrastructure fees.
+  Once I've built this using Datomic Ions, I should have learned enough about Clojure, Datomic and AWS to reimplement it on a cheaper platform.
+
+* Setting Up
+  I followed the instructions on the Datomic Cloud Documentation pages:
+  - [[https://docs.datomic.com/cloud/setting-up.html][Setting Up]]
+  - [[https://docs.datomic.com/cloud/getting-started/configuring-access.html][user Access]]
+** AWS Account
+   I will run this in my AWS account https://480816403005.signin.aws.amazon.com/console (login ~ewan~).
+** EC2 Key Pair
+   I created a new keypair for Frankfurt region: [[file:ewan-frankfurt.pem][ewan-frankfurt.pem]] 
+** Datomic Cloud
+   Purchased a ~solo~ instance, and deployed to a Cloud Formation Stack named ~ichigo~.
+*** CloudFormation
+    [[https://eu-central-1.console.aws.amazon.com/cloudformation/home?region=eu-central-1#/stacks?tab=events&filter=active][The CloudFormation Stacks for ichigo]]
+*** CloudWatch Dashboard
+    [[https://eu-central-1.console.aws.amazon.com/cloudwatch/home?region=eu-central-1#dashboards:name=datomic-ichigo-eu-central-1][The CloudWatch Dashboard for ichigo]]
+
+* Getting Started
+  Following the [[https://docs.datomic.com/cloud/getting-started/connecting.html][Getting Started]] instructions on the Datomic Cloud Documnetation pages.
+** Clojure
+   I installed ~clojure 1.9.0~ to my local profile on ~ehime~:
+   #+BEGIN_SRC sh
+   nix-env -iA nixos.clojure
+   #+END_SRC
+** AWS CLI
+   I installed ~awscli~ to my local profile on ~ehime~:
+   #+BEGIN_SRC sh
+   nix-env -i awscli
+   #+END_SRC
+** SOCKS Proxy
+   Downloaded the ~datomic-socks-proxy~ script and started it with:
+   #+BEGIN_SRC sh
+   bash datomic-socks-proxy ichigo 
+   #+END_SRC
+
+   #+RESULTS:
+
+   Successfully verified the SOCKS connection with:
+   #+BEGIN_SRC sh
+   export DATOMIC_SYSTEM=ichigo
+   export DATOMIC_REGION=eu-central-1
+   export DATOMIC_SOCKS_PORT=8182
+
+   curl -x socks5h://localhost:$DATOMIC_SOCKS_PORT http://entry.$DATOMIC_SYSTEM.$DATOMIC_REGION.datomic.net:8182/
+   #+END_SRC
+
+   #+RESULTS:
+   : ichigo-storagef7f305e7-1lw0plnlyyem4-s3datomic-bpowryov9sb6

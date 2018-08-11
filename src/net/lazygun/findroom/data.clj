@@ -1,10 +1,6 @@
-;; Copyright (c) Cognitect, Inc.
-;; All rights reserved.
-
-(ns datomic.ion.starter.examples.tutorial
-  (:require
-   [datomic.client.api :as d]
-   [datomic.ion.starter :as starter]))
+(ns net.lazygun.findroom.data
+  (:require [datomic.client.api :as d]
+            [net.lazygun.findroom :as findroom]))
 
 (def colors [:red :green :blue :yellow])
 (def sizes [:small :medium :large :xlarge])

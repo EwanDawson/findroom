@@ -1,7 +1,7 @@
 ;; Copyright (c) Cognitect, Inc.
 ;; All rights reserved.
 
-(ns datomic.ion.starter
+(ns net.lazygun.findroom
   (:require
    [clojure.data.json :as json]
    [clojure.edn :as edn]
@@ -68,8 +68,8 @@ against a connection. Returns connection"
 
 (defn get-connection
   []
-  (ensure-dataset "datomic-docs-tutorial"
-                  'datomic.ion.starter.examples.tutorial/load-dataset))
+  (ensure-dataset "lazygun-findroom"
+                  'net.lazygun.findroom.data/load-dataset))
 
 (defn schema
   "Returns a data representation of db schema."
